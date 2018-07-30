@@ -19,7 +19,17 @@ public class Function_03_Test {
     // TODO l'enfant possède le prenom "<PRENOM_PERE> <PRENOM_MERE>"
     // TODO l'age de l'enfant est 0
     // TODO le mot de passe de l'enfant est null
-    BinaryOperator<Person> makeAChild = null;
+    BinaryOperator<Person> makeAChild = (p1,p2) -> {
+    	
+    	Person p3 = new Person();
+    	String name = p1.getFirstname().concat(" ").concat(p2.getFirstname());
+ 
+    	p3.setLastname(p1.getLastname()); 
+    	p3.setFirstname(name);
+    	p3.setAge(0);
+    	p3.setPassword(null);
+		return p3;	
+    };
     //  end::makeAChild[]
 
 
@@ -30,7 +40,7 @@ public class Function_03_Test {
         Person mother = new Person("Aline", "Lebreton", 22, "alino");
 
         // TODO compléter le test pour qu'il soit passant
-        Person child = null;
+        Person child = makeAChild.apply(father, mother);
 
         assertThat(child, hasProperty("firstname", is("John Aline")));
         assertThat(child, hasProperty("lastname", is("France")));
